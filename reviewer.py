@@ -40,7 +40,7 @@ def make_code_review_request(filecontent, model):
 def main():
     parser = argparse.ArgumentParser(description="Simple code reviewer for a file")
     parser.add_argument("file")
-    parser.add_argumen("--model", default="gpt-4")
+    parser.add_argumen("--model", default="gpt-3.5-turbo")
     args = parser.parse_args()
     code_review(args.file, args.model)
 
