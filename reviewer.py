@@ -1,6 +1,7 @@
 import openai
 from dotenv import load_dotenv
 import os
+import argparse
 
 
 PROMPT = """
@@ -37,7 +38,11 @@ def make_code_review_request(filecontent, model):
 
 
 def main():
-    code_review("tree.py", "gpt-3.5-turbo")
+    parser = argparse.ArgumentParser(description="Simple code reviewer for a file")
+    parser.add_argument("file")
+    parser.add_argumen("--model", default="gpt-4")
+    args = parser.parse_args()
+    code_review(args.file, args.model)
 
 
 if __name__ == "__main__":
