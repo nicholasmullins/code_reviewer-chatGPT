@@ -2,12 +2,10 @@ import openai
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
-openai.api_key = os.getenv("API_KEY")
 
 PROMPT = """
 You will receive a file's contents as text. 
-Generate a code review for the file.  Indicate what changes should be made to improve its style, performance, readability and maintainability. If there are any good libraries that could be introduced to improve the code, suggest them. Be kind and constructive. For each suggested change, include line numbers to which you are referring.
+Generate a code review for the file.  Indicate what changes should be made to improve its style, performance, readability and maintainability. If there are any good libraries that could be introduced to improve the code, suggest them. Be kind and constructive. For each suggested change, include line numbers to which you are referring. Include the revised code with recommendations included.
 
 """
 
@@ -37,4 +35,12 @@ def make_code_review_request(filecontent, model):
 
     return res["choices"][0]["message"]["content"]
 
-code_review("tree.py", "gpt-3.5-turbo")
+
+def main():
+    code_review("tree.py", "gpt-3.5-turbo")
+
+
+if __name__ == "__main__":
+    load_dotenv()
+    openai.api_key = os.getenv("API_KEY")
+    main()
