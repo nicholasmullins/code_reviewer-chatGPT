@@ -18,14 +18,23 @@ def mystery(x,y):
 
 """
 
-messages = [
-    {"role": "system", "content": PROMPT},
-    {"role": "user", "content": f"Code review the following file: {filecontent}"}
-]
+def code_review(file_path, model):
+    with open(file_path, "r") as file:
+        content = file.read()
+    generated_code_review = make_code_review_request(content, model)
+    print(generated_code_review)
 
-res = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=messages
-)
+def make_code_review_request(filecontent, model):
+    messages = [
+        {"role": "system", "content": PROMPT},
+        {"role": "user", "content": f"Code review the following file: {filecontent}"}
+    ]
 
-print(res["choices"][0]["message"]["content"])
+    res = openai.ChatCompletion.create(
+        model=model,
+        messages=messages
+    )
+
+    return res["choices"][0]["message"]["content"]
+
+code_review("tree.py", "gpt-3.5-turbo")
